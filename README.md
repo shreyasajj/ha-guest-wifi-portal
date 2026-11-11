@@ -111,12 +111,12 @@ All of them return the portal's response when called with `return_response`.
 ## Development
 
 ```bash
-python3.13 -m venv .venv && . .venv/bin/activate
+python3.14 -m venv .venv && . .venv/bin/activate
 pip install -r requirements-test.txt   # pinned to HA 2026.2.3
 pytest -q
 ```
 
-To test against a newer Home Assistant, bump `pytest-homeassistant-custom-component` in `requirements-test.txt`. Each release pins one HA version, and releases for HA 2026.3 and later need Python 3.14, so change `python-version` in the workflow too.
+To test against a newer Home Assistant, bump `pytest-homeassistant-custom-component` in `requirements-test.txt`. Each release pins one HA version, and releases for HA 2026.3 and later need Python 3.14, which the workflow already uses.
 
 ### Repository setup
 
@@ -139,4 +139,8 @@ gh repo edit shreyasajj/ha-guest-wifi-portal --add-topic home-assistant,hacs,hac
 
 The repo must be **public**: HACS can't install from private repos, and the HACS validation checks for a description and topics. The ruleset (`.github/ruleset-main.json`) requires a pull request with **CI passed** green and up to date, and blocks force-pushes and deleting `main`. You can merge your own PRs.
 
-**Releases:** HACS installs the latest commit on `main` when there are no releases. To give users versions, bump `version` in `manifest.json` and publish a GitHub release with a matching tag, e.g. `gh release create v0.1.0 --generate-notes`.
+**Dependency updates and releases (already set up):**
+
+- **Dependabot** (`.github/dependabot.yml`) opens PRs every Monday for the test dependencies and GitHub Actions, plus security updates as soon as an advisory is published.
+- **Auto-merge:** the **Merge Dependabot PR** job merges a Dependabot PR once **CI passed** is green. If `main` moved on, it comments `@dependabot rebase` and merges after CI passes again. A PR that fails CI stays open. A new `pytest-homeassistant-custom-component` means a new Home Assistant core to test against, so the integration only merges updates that keep working on the latest HA.
+- **Releases:** every merge to `main` publishes a GitHub release `vX.Y.Z` with generated notes and `guest_wifi.zip` attached. `hacs.json` has `zip_release` on, so HACS installs that zip, and its `manifest.json` carries the release version. You don't need to edit `version` by hand. The patch number goes up by default. For a minor or major release: **Actions > CI > Run workflow**, pick `minor` or `major`.
