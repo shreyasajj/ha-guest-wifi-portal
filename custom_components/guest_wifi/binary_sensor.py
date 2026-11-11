@@ -8,7 +8,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from . import GuestWifiConfigEntry
 from .entity import GuestWifiEntity, track_new
 
-ICONS = {"phone": "mdi:cellphone", "computer": "mdi:laptop", "tablet": "mdi:tablet", "other": "mdi:devices"}
+ICONS = {"phone": "mdi:cellphone", "other": "mdi:devices"}
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: GuestWifiConfigEntry, add: AddEntitiesCallback) -> None:
