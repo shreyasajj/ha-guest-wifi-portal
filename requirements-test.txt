@@ -1,2 +1,2 @@
 # Pinned to the Home Assistant release the integration is tested against (HA 2026.2.3). CI runs it on Python 3.14.
-pytest-homeassistant-custom-component==0.13.316
+pytest-homeassistant-custom-component==0.13.375
