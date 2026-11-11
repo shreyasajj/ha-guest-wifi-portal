@@ -1,0 +1,44 @@
+approve_request:
+  fields:
+    request_id:
+      required: true
+      example: "3f2a9c0e8b5d4e1fa7c6b2d90e1f4a55"
+      selector:
+        text:
+    save_birthday:
+      default: true
+      selector:
+        boolean:
+    contact_uid:
+      required: false
+      selector:
+        text:
+
+deny_request:
+  fields:
+    request_id:
+      required: true
+      selector:
+        text:
+
+revoke_device:
+  fields:
+    device_id:
+      required: false
+      selector:
+        number:
+          min: 1
+          max: 1000000
+          mode: box
+    mac:
+      required: false
+      example: "aa:bb:cc:dd:ee:ff"
+      selector:
+        text:
+
+revoke_person:
+  fields:
+    person_uid:
+      required: true
+      selector:
+        text:
