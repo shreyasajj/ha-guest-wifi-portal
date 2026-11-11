@@ -1,0 +1,62 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to the guest Wi-Fi portal",
+        "description": "Use the portal's LAN address and one of the tokens from API_TOKENS in the portal's .env file.",
+        "data": {
+          "url": "Portal URL",
+          "token": "API token",
+          "verify_ssl": "Verify TLS certificate"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Couldn't reach the portal. Check the URL and that Home Assistant's IP is in ADMIN_ALLOWED_NETWORKS.",
+      "invalid_auth": "The portal rejected this token."
+    },
+    "abort": {
+      "already_configured": "This portal is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Approval notifications",
+        "description": "Which notify service should get actionable approval requests? Separate several with commas. Mobile app services found: {services}",
+        "data": {
+          "notify_service": "Notify service (e.g. notify.mobile_app_pixel_8)"
+        }
+      }
+    }
+  },
+  "services": {
+    "approve_request": {
+      "name": "Approve request",
+      "description": "Approve a pending guest Wi-Fi approval request.",
+      "fields": {
+        "request_id": {"name": "Request ID", "description": "ID from the approval_requested event or the pending approvals sensor."},
+        "save_birthday": {"name": "Save birthday", "description": "Write the entered birthday to the contact in Nextcloud."},
+        "contact_uid": {"name": "Contact UID", "description": "Which matched contact gets the birthday. Defaults to the first match."}
+      }
+    },
+    "deny_request": {
+      "name": "Deny request",
+      "description": "Deny a pending guest Wi-Fi approval request.",
+      "fields": {"request_id": {"name": "Request ID", "description": "ID of the request to deny."}}
+    },
+    "revoke_device": {
+      "name": "Revoke device",
+      "description": "Remove a device's access and disconnect it.",
+      "fields": {
+        "device_id": {"name": "Device ID", "description": "Portal device ID."},
+        "mac": {"name": "MAC address", "description": "Alternatively, the device's MAC address."}
+      }
+    },
+    "revoke_person": {
+      "name": "Revoke person",
+      "description": "Revoke all of a person's devices and block future sign-ins.",
+      "fields": {"person_uid": {"name": "Person UID", "description": "The person's contact UID (person_uid attribute)."}}
+    }
+  }
+}

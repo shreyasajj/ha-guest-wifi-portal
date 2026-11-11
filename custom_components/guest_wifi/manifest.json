@@ -1,0 +1,15 @@
+{
+  "domain": "guest_wifi",
+  "name": "Guest Wi-Fi Portal",
+  "codeowners": [
+    "@shreyasajj"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/shreyasajj/ha-guest-wifi-portal",
+  "integration_type": "hub",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/shreyasajj/ha-guest-wifi-portal/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}
