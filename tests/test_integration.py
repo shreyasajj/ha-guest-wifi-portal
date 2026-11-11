@@ -29,7 +29,7 @@ SNAPSHOT = {
         {"device_id": 1, "mac": "aa:bb:cc:00:00:01", "type": "phone", "nickname": None, "label": "Phone",
          "person_uid": "u1", "person_name": "Maya Chen", "online": True, "revoked": False, "current_ip": "10.0.20.5",
          "first_seen": None, "last_seen": None},
-        {"device_id": 2, "mac": "aa:bb:cc:00:00:02", "type": "computer", "nickname": "Work laptop", "label": "Work laptop",
+        {"device_id": 2, "mac": "aa:bb:cc:00:00:02", "type": "other", "nickname": "Work laptop", "label": "Work laptop",
          "person_uid": "u1", "person_name": "Maya Chen", "online": False, "revoked": False, "current_ip": None,
          "first_seen": None, "last_seen": None},
     ],
