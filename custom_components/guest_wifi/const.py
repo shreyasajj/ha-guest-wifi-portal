@@ -25,5 +25,6 @@ EVENT_MAP = {
     "device_revoked": "guest_wifi_device_revoked",
     "person_revoked": "guest_wifi_person_revoked",
     "person_unblocked": "guest_wifi_person_unblocked",
+    "person_removed": "guest_wifi_person_removed",
     "device_updated": "guest_wifi_device_updated",
 }
