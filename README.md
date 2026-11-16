@@ -50,13 +50,13 @@ Copy `custom_components/guest_wifi` to `/config/custom_components/guest_wifi` an
 | `sensor.guest_wi_fi_unidentified_devices` | | MACs allowed or in session in OPNsense but unknown to the portal |
 | `sensor.guest_wi_fi_pending_approvals` | | open requests (`requests` attribute with IDs) |
 
-New people and devices get entities automatically. Revoked devices become unavailable.
+New people and devices get entities automatically. When a device is revoked, its entity is removed. When a person has no devices left (for example, you deleted their MACs in OPNsense), the portal removes them and their `device_tracker` is removed too. If they sign in again, it comes back.
 
 Tip: add a person's tracker to a Home Assistant **Person** together with the UniFi Network tracker for their phone, for faster "left home" detection.
 
 ## Events
 
-`guest_wifi_new_device`, `guest_wifi_unidentified_device`, `guest_wifi_approval_requested`, `guest_wifi_approval_resolved`, `guest_wifi_person_home`, `guest_wifi_person_away`, `guest_wifi_device_online`, `guest_wifi_device_offline`, `guest_wifi_device_revoked`, `guest_wifi_person_revoked`, `guest_wifi_person_unblocked`, `guest_wifi_device_updated`
+`guest_wifi_new_device`, `guest_wifi_unidentified_device`, `guest_wifi_approval_requested`, `guest_wifi_approval_resolved`, `guest_wifi_person_home`, `guest_wifi_person_away`, `guest_wifi_device_online`, `guest_wifi_device_offline`, `guest_wifi_device_revoked`, `guest_wifi_person_revoked`, `guest_wifi_person_unblocked`, `guest_wifi_person_removed`, `guest_wifi_device_updated`
 
 ## Services
 

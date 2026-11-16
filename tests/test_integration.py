@@ -94,6 +94,32 @@ async def test_entities(hass: HomeAssistant, aioclient_mock):
     assert await hass.config_entries.async_unload(entry.entry_id)
 
 
+async def test_removed_person_and_device_entities_are_deleted(hass: HomeAssistant, aioclient_mock):
+    import copy
+
+    entry, _ = await _setup(hass, aioclient_mock)
+    coord = entry.runtime_data
+    reg = er.async_get(hass)
+    maya_id = _entity(hass, "device_tracker", "person_u1").entity_id
+    laptop_id = _entity(hass, "binary_sensor", "device_aabbcc000002").entity_id
+
+    # Maya's devices were removed in OPNsense: the portal revoked them and removed her.
+    data = copy.deepcopy(SNAPSHOT)
+    data["people"] = [p for p in data["people"] if p["person_uid"] != "u1"]
+    data["devices"] = []
+    coord.async_set_updated_data(data)
+    await hass.async_block_till_done()
+    assert reg.async_get(maya_id) is None and hass.states.get(maya_id) is None
+    assert reg.async_get(laptop_id) is None
+    assert _entity(hass, "device_tracker", "person_u2").state == "not_home"  # others untouched
+
+    # She signs in again: the tracker comes back.
+    coord.async_set_updated_data(copy.deepcopy(SNAPSHOT))
+    await hass.async_block_till_done()
+    assert _entity(hass, "device_tracker", "person_u1").state == "home"
+    assert await hass.config_entries.async_unload(entry.entry_id)
+
+
 async def test_pending_approval_notifies_and_action_resolves(hass: HomeAssistant, aioclient_mock):
     aioclient_mock.post(f"{URL}/api/approvals/{RID}/approve", json={"request_id": RID, "status": "approved_no_save"})
     entry, notify_calls = await _setup(hass, aioclient_mock)
